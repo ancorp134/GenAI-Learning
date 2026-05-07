@@ -1,0 +1,55 @@
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django migrations
+**/migrations/*.py[cod]
+**/migrations/__pycache__/
+
+# env/ virtual environment
+env/
+venv/
+.venv/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+
+# Database
+*.sqlite3
+
+# Logs
+*.log
+
+# Pytest cache
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+
+# pipenv
+Pipfile.lock
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Ollama / local AI runtimes
+*.onnx
+*.bin
