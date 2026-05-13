@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import ollama
+from .models import ChatMessage
 
 conversation_history = [
     {
@@ -27,7 +28,13 @@ class ChatAPIView(APIView):
         if not question:
             return Response({"error": "Question is required"})
 
-        conversation_history.append({"role": "user", "content": question})
+        ChatMessage.objects.create(role="user", content=question)
+
+        # conversation_history.append({"role": "user", "content": question})
+
+        messages = ChatMessage.objects.all().order_by("created_at")
+        for msg in messages:
+            conversation_history.append({"role": msg.role, "content": msg.content})
 
         response = ollama.chat(
             model="deepseek-coder:1.3b", messages=conversation_history
@@ -35,7 +42,8 @@ class ChatAPIView(APIView):
 
         assistant_answer = response["message"]["content"]
 
-        conversation_history.append({"role": "assistant", "content": assistant_answer})
+        # conversation_history.append({"role": "assistant", "content": assistant_answer})
+        ChatMessage.objects.create(role="assistant", content=assistant_answer)
 
         print("Conversation history:", conversation_history)
 
